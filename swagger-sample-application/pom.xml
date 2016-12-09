@@ -67,7 +67,7 @@
 							<goal>copy</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>./output</outputDirectory>
+							<outputDirectory>./deployment_artifacts</outputDirectory>
 							<stripVersion>true</stripVersion>
 							<artifactItems>
 								<artifactItem>

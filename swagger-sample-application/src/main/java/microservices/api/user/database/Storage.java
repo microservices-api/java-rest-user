@@ -1,5 +1,4 @@
 /**
-* (C) Copyright IBM Corporation 2016.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -13,23 +12,25 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+package microservices.api.user.database;
 
-package microservices.api.user.jaxrs.model;
+import java.util.Set;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import microservices.api.user.jaxrs.model.Profile;
 
-@ApiModel(parent = Profile.class)
-public class ProfileWithID extends Profile {
-	@ApiModelProperty(readOnly = true, required = true)
-	private int id;
+/**
+ * Simple {key,value} storage for Profiles
+ */
+public interface Storage {
 
-	public ProfileWithID(Profile profile, int id) {
-		super(profile);
-		this.id = id;
-	}
+	Set<Profile> getAllEntries();
+	
+	Profile getEntry(String id);
+	
+	String createEntry(Profile value);
+	
+	void updateEntry(String id, Profile value);
+	
+	void deleteEntry(String id);
 
-	public int getId() {
-		return this.id;
-	}
 }
