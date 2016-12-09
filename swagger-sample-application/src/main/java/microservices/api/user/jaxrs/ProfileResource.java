@@ -45,27 +45,27 @@ import microservices.api.user.jaxrs.model.ProfileWithID;
 @Path("")
 @Api(value = "User Profile", authorizations = { @Authorization(value="basicAuth") })
 public class ProfileResource {
-	private Map<Integer, Profile> tasks = new ConcurrentHashMap<Integer, Profile>();
+	private Map<Integer, Profile> profiles = new ConcurrentHashMap<Integer, Profile>();
 	private volatile int currentId = 0;
 
 	@GET
 	@ApiOperation(value = "Retrieve all profiles", responseContainer = "array", response = ProfileWithID.class)
 	@Produces("application/json")
-	public Response getTasks() {
-		List<ProfileWithID> result = new ArrayList<ProfileWithID>(tasks.size());
-		for (Entry<Integer, Profile> taskEntry : tasks.entrySet()) {
-			result.add(new ProfileWithID(taskEntry.getValue(), taskEntry.getKey()));
+	public Response getProfiles() {
+		List<ProfileWithID> result = new ArrayList<ProfileWithID>(profiles.size());
+		for (Entry<Integer, Profile> profileEntry : profiles.entrySet()) {
+			result.add(new ProfileWithID(profileEntry.getValue(), profileEntry.getKey()));
 		}
 		return Response.ok().entity(result).build();
 	}
 
 	@POST
-	@ApiOperation("Create a task")
+	@ApiOperation("Create a profile")
 	@Consumes("application/json")
 	@Produces("application/json")
-	@ApiResponses({ @ApiResponse(code = 201, message = "Task created", response = String.class) })
-	public Response createTask(@ApiParam(required = true) Profile task) {
-		tasks.put(currentId, task);
+	@ApiResponses({ @ApiResponse(code = 201, message = "Profile created", response = String.class) })
+	public Response createProfile(@ApiParam(required = true) Profile profile) {
+		profiles.put(currentId, profile);
 		return Response.status(Status.CREATED).entity("{\"id\":" + currentId++ + "}").build();
 	}
 
@@ -73,12 +73,12 @@ public class ProfileResource {
 	@Path("{id}")
 	@ApiOperation(value = "Get a profile")
 	@Produces("application/json")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Task retrieved", response = Profile.class),
-			@ApiResponse(code = 404, message = "Task not found") })
-	public Response getTask(@PathParam("id") int id) {
-		Profile task = tasks.get(id);
-		if (task != null) {
-			return Response.ok().entity(task).build();
+	@ApiResponses({ @ApiResponse(code = 200, message = "Profile retrieved", response = Profile.class),
+			@ApiResponse(code = 404, message = "Profile not found") })
+	public Response getProfile(@PathParam("id") int id) {
+		Profile profile = profiles.get(id);
+		if (profile != null) {
+			return Response.ok().entity(profile).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -90,10 +90,10 @@ public class ProfileResource {
 	@Consumes("application/json")
 	@Produces("text/plain")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Profile updated"),
-			@ApiResponse(code = 404, message = "Task not found") })
-	public Response updateTask(@PathParam("id") int id, @ApiParam(required = true) Profile task) {
-		if (tasks.get(id) != null) {
-			tasks.put(id, task);
+			@ApiResponse(code = 404, message = "Profile not found") })
+	public Response updateProfile(@PathParam("id") int id, @ApiParam(required = true) Profile profile) {
+		if (profiles.get(id) != null) {
+			profiles.put(id, profile);
 			return Response.ok().build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
@@ -104,11 +104,11 @@ public class ProfileResource {
 	@Path("{id}")
 	@ApiOperation(value = "Delete a profile")
 	@ApiResponses({ @ApiResponse(code = 200, message = "Profile deleted"),
-			@ApiResponse(code = 404, message = "Task not found") })
+			@ApiResponse(code = 404, message = "Profile not found") })
 	@Produces("text/plain")
-	public Response deleteTask(@PathParam("id") int id) {
-		if (tasks.get(id) != null) {
-			tasks.remove(id);
+	public Response deleteProfile(@PathParam("id") int id) {
+		if (profiles.get(id) != null) {
+			profiles.remove(id);
 			return Response.ok().build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();

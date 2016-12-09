@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<display-name>java-rest-user-application</display-name>
 	
-  <security-constraint id="SecurityConstraints_RESTAPIDiscoveryUI">
+  <security-constraint id="SecurityConstraints_UserProfile>
     <display-name>User Profile Security Constraint</display-name>
     <web-resource-collection id="WebResourceCollection_User_Profile">
       <web-resource-name>User Profile URL</web-resource-name>
@@ -16,14 +16,14 @@
     </user-data-constraint>
   </security-constraint>
 
-  <security-constraint id="SecurityConstraints_RESTAPIDiscoveryUI_MethodOmitted">
+  <security-constraint id="SecurityConstraints_UserProfile_MethodOmitted">
     <display-name>User Profile Security Constraint</display-name>
-    <web-resource-collection id="WebResourceCollection_RESTAPIDiscoveryUI_MethodOmitted">
+    <web-resource-collection id="WebResourceCollection_UserProfile_MethodOmitted">
       <web-resource-name>User Profile URL</web-resource-name>
       <url-pattern>/*</url-pattern>
       <http-method>OPTIONS</http-method>
     </web-resource-collection>
-    <user-data-constraint id="UserDataConstraint_RESTAPIDiscoveryUI_MethodOmitted">
+    <user-data-constraint id="UserDataConstraint_UserProfile_MethodOmitted">
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
