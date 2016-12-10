@@ -1,5 +1,3 @@
-A Java microservice that exposes REST APIs for user profile creation and management
-
 # Getting started
 ## Clone application
 ```
